@@ -79,7 +79,7 @@ describe PagesController do
           new_title = "test_title"
 
           expect {
-            patch :update, id: @page, page: { title: new_title }
+            put :update, id: @page, page: { title: new_title }
             @page.reload  
           }.to change(@page, :title).from(old_title).to(new_title)
         end
@@ -92,7 +92,7 @@ describe PagesController do
       it "hacker should be blocked" do
         sign_in @hacker
         @request.env['HTTP_REFERER'] = '/'
-        patch :update, id: @page, page: { title: "test_title" }
+        put :update, id: @page, page: { title: "test_title" }
         response.body.should match access_denied_match
       end
     end
@@ -110,7 +110,7 @@ describe PagesController do
       sign_in @owner
 
       expect {
-        patch :update, id: @page, page: { title: @new_title }
+        put :update, id: @page, page: { title: @new_title }
         @page.reload  
       }.to change(@page, :title).from(@old_title).to(@new_title)
     end
@@ -119,7 +119,7 @@ describe PagesController do
       sign_in @moderator
 
       expect {
-        patch :update, id: @page, page: { title: @new_title }
+        put :update, id: @page, page: { title: @new_title }
         @page.reload 
       }.to change(@page, :title).from(@old_title).to(@new_title)
     end
@@ -129,7 +129,7 @@ describe PagesController do
       @request.env['HTTP_REFERER'] = '/'
 
       expect {
-        patch :update, id: @page, page: { title: @new_title }
+        put :update, id: @page, page: { title: @new_title }
         @page.reload  
       }.to_not change(@page, :title).from(@old_title).to(@new_title)
     end

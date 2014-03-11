@@ -27,4 +27,5 @@ test/version_tmp
 
 .DS_Store
 .LSOverride
-.AppleDouble
+.AppleDoublevendor/ruby
+vendor/
